@@ -6,7 +6,8 @@
   "scripts": {
     "sls": "sls",
     "doctor": "sls --  doctor",
-    "deploy-dev": "AWS_PROFILE=test-dev npm run sls -- deploy"
+    "deploy-dev": "AWS_PROFILE=test-dev npm run sls -- deploy",
+    "package": "sls -- package"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,12 @@
   },
   "homepage": "https://github.com/nonso-caleb/appsync-serverless#readme",
   "devDependencies": {
+    "aws-sdk": "^2.1489.0",
     "serverless": "^3.36.0",
-    "serverless-appsync-plugin": "^2.4.0"
+    "serverless-appsync-plugin": "^2.4.0",
+    "serverless-iam-roles-per-function": "^3.2.0"
+  },
+  "dependencies": {
+    "chance": "^1.1.11"
   }
 }
