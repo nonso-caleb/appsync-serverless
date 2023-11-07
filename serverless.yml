@@ -1,0 +1,70 @@
+
+
+service: appsync-dev
+frameworkVersion: "3"
+
+plugins:
+  - serverless-appsync-plugin
+
+package:
+  patterns:
+    - '!package-lock.json'
+    - '!package.json'
+
+
+appSync:
+  name: appsyncmasterclass
+  schema: 'schema.api.graphql'
+  authentication:
+    type: AMAZON_COGNITO_USER_POOLS
+    config:
+      awsRegion: eu-west-1
+      defaultEffect: ALLOW
+      userPoolId: !Ref CognitoUserPool  
+    
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-west-1
+
+
+resources:
+  Resources:
+    CognitoUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        AutoVerifiedAttributes:
+          - email
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+            RequireLowercase: false
+            RequireNumbers: false
+            RequireUppercase: false
+            RequireSymbols: false
+        UsernameAttributes:
+          - email
+        Schema:
+          - AttributeDataType: String
+            Name: name
+            Required: false
+            Mutable: true
+
+# ==========THIS CODE WAS USED TO MAKE LOGIN POSSIBLE ==============
+  # WHY WEB CLIENT???
+    WebUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        UserPoolId: !Ref CognitoUserPool
+        ClientName: web
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_USER_PASSWORD_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        PreventUserExistenceErrors: ENABLED
+
+  Outputs:
+    CognitoUserPoolId:
+      Value: !Ref CognitoUserPool
+

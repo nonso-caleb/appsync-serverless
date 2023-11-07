@@ -1,0 +1,26 @@
+{
+  "name": "appsync-dev",
+  "version": "1.0.0",
+  "description": "API for Appsync app",
+  "main": "index.js",
+  "scripts": {
+    "sls": "sls",
+    "doctor": "sls --  doctor",
+    "deploy-dev": "AWS_PROFILE=test-dev npm run sls -- deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nonso-caleb/appsync-serverless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nonso-caleb/appsync-serverless/issues"
+  },
+  "homepage": "https://github.com/nonso-caleb/appsync-serverless#readme",
+  "devDependencies": {
+    "serverless": "^3.36.0",
+    "serverless-appsync-plugin": "^2.4.0"
+  }
+}
